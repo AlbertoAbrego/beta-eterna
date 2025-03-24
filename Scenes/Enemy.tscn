@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwv1vlpseabv7"]
 
-[ext_resource type="Script" path="res://Scripts/EnemyBehavior.gd" id="1_q7wnn"]
+[ext_resource type="Script" path="res://Scripts/enemy_behavior.gd" id="1_q7wnn"]
 [ext_resource type="Texture2D" uid="uid://b4yrh30e26sjw" path="res://Sprites/slime.png" id="2_nsr3v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lsrop"]

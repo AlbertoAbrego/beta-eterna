@@ -1,5 +1,6 @@
 extends Node
 
+@onready var timer = $Timer
 var enemy_scene = preload("res://scenes/Enemy.tscn")
 var max_waves = 10
 var elapsedTime = 0.0
@@ -31,7 +32,8 @@ func _spawn_wave():
 		for i in range(randi_range(spawn_wave_order[wave][0], spawn_wave_order[wave][1])):
 			spawn_enemy()
 		wave += 1
-		await get_tree().create_timer(time_next_wave).timeout
+		timer.start()
+		await timer.timeout
 		_spawn_wave()
 	else:
 		pass

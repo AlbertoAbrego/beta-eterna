@@ -1,11 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://du0jleeqpdhpn"]
+[gd_scene load_steps=7 format=3 uid="uid://du0jleeqpdhpn"]
 
 [ext_resource type="PackedScene" uid="uid://bi7l40yio0t4g" path="res://Scenes/Player.tscn" id="1_0ffvu"]
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_q8t8p"]
 [ext_resource type="Texture2D" uid="uid://dsy7co27632k2" path="res://Sprites/jake1.png" id="3_25git"]
 [ext_resource type="Texture2D" uid="uid://b8e2otwh53jib" path="res://Sprites/sword.png" id="4_a6tgv"]
-[ext_resource type="Script" path="res://Scripts/EnemySpawner.gd" id="4_lvuys"]
+[ext_resource type="Script" path="res://Scripts/enemy_spawner.gd" id="4_lvuys"]
+[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="6_1faxb"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_q8t8p")
 
 [node name="Player" parent="." instance=ExtResource("1_0ffvu")]
 position = Vector2(818, 482)
@@ -18,6 +21,37 @@ texture = ExtResource("3_25git")
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource("4_lvuys")
 
+[node name="Timer" type="Timer" parent="EnemySpawner"]
+process_mode = 1
+wait_time = 10.0
+
 [node name="Sword" type="Sprite2D" parent="."]
 position = Vector2(1179, 477)
 texture = ExtResource("4_a6tgv")
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("6_1faxb")
+
+[node name="ColorRect" type="ColorRect" parent="Canvas"]
+offset_right = 960.0
+offset_bottom = 540.0
+color = Color(1, 1, 1, 0.407843)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/ColorRect"]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 235.0
+offset_right = 540.0
+offset_bottom = 305.0
+
+[node name="Continue" type="Button" parent="Canvas/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Exit" type="Button" parent="Canvas/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="Canvas/ColorRect/VBoxContainer/Continue" to="Canvas" method="_on_continue_pressed"]
+[connection signal="pressed" from="Canvas/ColorRect/VBoxContainer/Exit" to="Canvas" method="_on_exit_pressed"]

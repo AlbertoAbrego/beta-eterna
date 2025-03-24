@@ -1,0 +1,21 @@
+extends CanvasLayer
+
+@onready var continue_button = $ColorRect/VBoxContainer/Continue
+@onready var exit_button = $ColorRect/VBoxContainer/Exit
+
+func _ready():
+	hide()
+
+func _toggle_pause():
+	if get_tree().paused:
+		get_tree().paused = false
+		hide()
+	else:
+		get_tree().paused = true
+		show()
+
+func _on_continue_pressed():
+	_toggle_pause()
+
+func _on_exit_pressed():
+	get_tree().quit()

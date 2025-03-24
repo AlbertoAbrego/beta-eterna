@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var damage = 2
 @onready var damage_timer = $DamageTimer
-var xp_ball = preload("res://Scenes/xp.tscn")
+@onready var xp_ball = preload("res://Scenes/xp.tscn")
 var xp_ammount = 100
 var speed = 100
 var health = 10
