@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://du0jleeqpdhpn"]
+
+[ext_resource type="PackedScene" uid="uid://bi7l40yio0t4g" path="res://Scenes/Player.tscn" id="1_0ffvu"]
+[ext_resource type="Texture2D" uid="uid://dsy7co27632k2" path="res://Sprites/jake1.png" id="3_25git"]
+[ext_resource type="Texture2D" uid="uid://b8e2otwh53jib" path="res://Sprites/sword.png" id="4_a6tgv"]
+[ext_resource type="Script" path="res://Scripts/EnemySpawner.gd" id="4_lvuys"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_0ffvu")]
+position = Vector2(818, 482)
+
+[node name="Jake1" type="Sprite2D" parent="."]
+position = Vector2(1256, 468)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_25git")
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("4_lvuys")
+
+[node name="Sword" type="Sprite2D" parent="."]
+position = Vector2(1179, 477)
+texture = ExtResource("4_a6tgv")

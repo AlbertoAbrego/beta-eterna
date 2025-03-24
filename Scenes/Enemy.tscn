@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwv1vlpseabv7"]
+
+[ext_resource type="Script" path="res://Scripts/EnemyBehavior.gd" id="1_q7wnn"]
+[ext_resource type="Texture2D" uid="uid://b4yrh30e26sjw" path="res://Sprites/slime.png" id="2_nsr3v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lsrop"]
+radius = 11.0454
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3isbj"]
+radius = 12.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 2
+collision_mask = 6
+script = ExtResource("1_q7wnn")
+
+[node name="DamageTimer" type="Timer" parent="."]
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_nsr3v")
+
+[node name="EnemyShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_lsrop")
+
+[node name="PlayerSensor" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="SensorShape" type="CollisionShape2D" parent="PlayerSensor"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_3isbj")
+
+[connection signal="timeout" from="DamageTimer" to="." method="_apply_damage"]
+[connection signal="body_entered" from="PlayerSensor" to="." method="_on_player_sensor_body_entered"]
+[connection signal="body_exited" from="PlayerSensor" to="." method="_on_player_sensor_body_exited"]

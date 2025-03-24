@@ -1,0 +1,90 @@
+[gd_scene load_steps=10 format=3 uid="uid://bi7l40yio0t4g"]
+
+[ext_resource type="Texture2D" uid="uid://dfurgpwhgqkjc" path="res://Sprites/player.png" id="1_aywna"]
+[ext_resource type="Script" path="res://Scripts/playerControl.gd" id="1_kqt35"]
+[ext_resource type="Texture2D" uid="uid://dtov1acmq0di0" path="res://Sprites/Attack1.png" id="3_jgm1l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mcdh1"]
+size = Vector2(16, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5jbu"]
+size = Vector2(16, 27)
+
+[sub_resource type="Animation" id="Animation_n0bvt"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_nrkp2"]
+resource_name = "attack"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackArea/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h6qwl"]
+_data = {
+"RESET": SubResource("Animation_n0bvt"),
+"attack": SubResource("Animation_nrkp2")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_py0pk"]
+size = Vector2(56, 20)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 4
+script = ExtResource("1_kqt35")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_aywna")
+
+[node name="ShapePlayer" type="CollisionShape2D" parent="."]
+visible = false
+light_mask = 0
+visibility_layer = 0
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_mcdh1")
+
+[node name="EnemySensor" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="ShapeSensor" type="CollisionShape2D" parent="EnemySensor"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_j5jbu")
+
+[node name="playerCam" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="AttackTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_h6qwl")
+}
+
+[node name="AttackArea" type="Area2D" parent="."]
+disable_mode = 2
+collision_layer = 0
+collision_mask = 2
+
+[node name="Range" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("RectangleShape2D_py0pk")
+
+[node name="Sprite2D" type="Sprite2D" parent="AttackArea"]
+visible = false
+position = Vector2(0, -1.5)
+scale = Vector2(1.75, 1.5625)
+texture = ExtResource("3_jgm1l")
+
+[connection signal="timeout" from="AttackTimer" to="." method="_attack"]
+[connection signal="animation_finished" from="Animation" to="." method="_on_animation_animation_finished"]
+[connection signal="animation_started" from="Animation" to="." method="_on_animation_animation_started"]
