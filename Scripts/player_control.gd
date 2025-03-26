@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 @onready var attackTimer = $AttackTimer
+@onready var skill_points_buttons = $Inventory/skill_points_buttons
+@onready var skill_points_label = $Inventory/skill_points_label
 
 #player stats
 var level = 1
@@ -12,8 +14,9 @@ var armor = 0
 var dexterity = 5
 var magic = 0
 var magic_resist = 0
-var speed = 110
 var attack_speed = 1
+var speed = 110
+var skill_points = 0
 
 var doingAttack = false
 var xp_factor = 1.5 #1.2-easy 1.5-medium 2-hard
@@ -55,6 +58,10 @@ func _check_level_up():
 	while xp > next_level:
 		xp -= next_level
 		level += 1
+		skill_points += 1
+		skill_points_label.text = "Skill points: " + str(skill_points)
+		skill_points_buttons.visible = true
+		skill_points_label.visible = true
 		print("level up", level)
 		next_level = _get_xp_required_next_level()
 

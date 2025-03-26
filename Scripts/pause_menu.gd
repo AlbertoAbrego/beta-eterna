@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-@onready var continue_button = $ColorRect/VBoxContainer/Continue
-@onready var exit_button = $ColorRect/VBoxContainer/Exit
+@onready var continue_button = $PauseMenu/VBoxContainer/Continue
+@onready var exit_button = $PauseMenu/VBoxContainer/Exit
 
 func _ready():
 	hide()
