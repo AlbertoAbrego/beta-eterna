@@ -1,18 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwv1vlpseabv7"]
+[gd_scene load_steps=4 format=3 uid="uid://bwv1vlpseabv7"]
 
-[ext_resource type="Script" path="res://Scripts/enemy_behavior.gd" id="1_q7wnn"]
+[ext_resource type="Script" path="res://Scripts/enemies/enemy_behavior.gd" id="1_q7wnn"]
 [ext_resource type="Texture2D" uid="uid://b4yrh30e26sjw" path="res://Sprites/slime.png" id="2_nsr3v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lsrop"]
-radius = 11.0454
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_3isbj"]
-radius = 12.0
+radius = 11.0
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 6
 script = ExtResource("1_q7wnn")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 4.0
+target_desired_distance = 4.0
+path_max_distance = 1000.0
+navigation_layers = 2
+avoidance_enabled = true
+radius = 11.0
+neighbor_distance = 1.0
+max_speed = 80.0
+avoidance_layers = 2
+debug_path_custom_point_size = 0.0
 
 [node name="DamageTimer" type="Timer" parent="."]
 
@@ -24,11 +33,12 @@ position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_lsrop")
 
 [node name="PlayerSensor" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 
-[node name="SensorShape" type="CollisionShape2D" parent="PlayerSensor"]
+[node name="SensorShape" type="CollisionPolygon2D" parent="PlayerSensor"]
 position = Vector2(0, -1)
-shape = SubResource("CircleShape2D_3isbj")
+polygon = PackedVector2Array(0, -11, -9, -7, -15, 4, -8, 10, 0, 11, 8, 10, 15, 4, 9, -7)
 
 [connection signal="timeout" from="DamageTimer" to="." method="_apply_damage"]
 [connection signal="body_entered" from="PlayerSensor" to="." method="_on_player_sensor_body_entered"]

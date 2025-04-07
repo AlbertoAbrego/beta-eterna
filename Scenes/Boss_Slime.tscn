@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://porigmvrintg"]
+
+[ext_resource type="Script" path="res://Scripts/boss_behavior.gd" id="1_cdb5s"]
+[ext_resource type="Texture2D" uid="uid://c0bxlh5rkhu6m" path="res://Sprites/boss_slime.png" id="1_egjlo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8fjl5"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6t0j2"]
+radius = 45.0111
+
+[node name="Boss" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 2
+collision_mask = 6
+script = ExtResource("1_cdb5s")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 4.0
+target_desired_distance = 4.0
+path_max_distance = 1500.0
+navigation_layers = 2
+avoidance_enabled = true
+radius = 45.0
+neighbor_distance = 1.0
+max_speed = 80.0
+avoidance_layers = 2
+debug_path_custom_point_size = 0.0
+
+[node name="DamageTimer" type="Timer" parent="."]
+
+[node name="Boss_Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_egjlo")
+
+[node name="Boss_Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8fjl5")
+
+[node name="PlayerSensor" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="SensorShape" type="CollisionShape2D" parent="PlayerSensor"]
+shape = SubResource("CircleShape2D_6t0j2")
+
+[connection signal="timeout" from="DamageTimer" to="." method="_apply_damage"]
+[connection signal="body_entered" from="PlayerSensor" to="." method="_on_player_sensor_body_entered"]
+[connection signal="body_exited" from="PlayerSensor" to="." method="_on_player_sensor_body_exited"]

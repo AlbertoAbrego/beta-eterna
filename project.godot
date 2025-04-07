@@ -17,8 +17,9 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=960
-window/size/viewport_height=540
+window/size/viewport_width=1080
+window/size/viewport_height=720
+window/size/resizable=false
 
 [input]
 
@@ -60,6 +61,10 @@ inventory={
 [layer_names]
 
 2d_render/layer_2="PlayerVSEnemies"
+
+[navigation]
+
+2d/default_cell_size=32.0
 
 [rendering]
 

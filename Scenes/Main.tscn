@@ -1,13 +1,40 @@
-[gd_scene load_steps=6 format=3 uid="uid://du0jleeqpdhpn"]
+[gd_scene load_steps=14 format=3 uid="uid://du0jleeqpdhpn"]
 
 [ext_resource type="PackedScene" uid="uid://bi7l40yio0t4g" path="res://Scenes/Player.tscn" id="1_0ffvu"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_q8t8p"]
 [ext_resource type="Texture2D" uid="uid://dsy7co27632k2" path="res://Sprites/jake1.png" id="3_25git"]
 [ext_resource type="Texture2D" uid="uid://b8e2otwh53jib" path="res://Sprites/sword.png" id="4_a6tgv"]
-[ext_resource type="Script" path="res://Scripts/enemy_spawner.gd" id="4_lvuys"]
+[ext_resource type="Script" path="res://Scripts/enemies/enemy_spawner.gd" id="4_lvuys"]
+[ext_resource type="Script" path="res://Scripts/player/inventory_menu.gd" id="6_68vtk"]
+[ext_resource type="Script" path="res://Scripts/player/pause_menu.gd" id="7_x32b5"]
+[ext_resource type="Script" path="res://Scripts/player/dead_screen.gd" id="8_pl5uw"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_r0xx5"]
+vertices = PackedVector2Array(28072, 20798, -17545, 21120, -17143, -23128, 27509, -23128)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-17153, -23138, -17556, 21131, 28083, 20808, 27519, -23138)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+cell_size = 32.0
+
+[sub_resource type="Gradient" id="Gradient_50mf3"]
+colors = PackedColorArray(0.260348, 0.405368, 0.797837, 1, 0.258824, 0.403922, 0.796078, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cu8m6"]
+gradient = SubResource("Gradient_50mf3")
+
+[sub_resource type="Gradient" id="Gradient_xjbby"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.700331, 0.6935, 0.650164, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tqv3f"]
+gradient = SubResource("Gradient_xjbby")
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_q8t8p")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(477, 242)
+navigation_polygon = SubResource("NavigationPolygon_r0xx5")
+navigation_layers = 2
 
 [node name="Player" parent="." instance=ExtResource("1_0ffvu")]
 position = Vector2(818, 482)
@@ -21,9 +48,199 @@ texture = ExtResource("3_25git")
 script = ExtResource("4_lvuys")
 
 [node name="Timer" type="Timer" parent="EnemySpawner"]
-process_mode = 1
 wait_time = 10.0
 
 [node name="Sword" type="Sprite2D" parent="."]
 position = Vector2(1179, 477)
 texture = ExtResource("4_a6tgv")
+
+[node name="GameManager" type="Node2D" parent="."]
+process_mode = 3
+script = ExtResource("1_q8t8p")
+
+[node name="Inventory" type="CanvasLayer" parent="GameManager"]
+visible = false
+script = ExtResource("6_68vtk")
+
+[node name="inventory_sprite" type="Sprite2D" parent="GameManager/Inventory"]
+position = Vector2(487, 230)
+scale = Vector2(9.98438, 4.84375)
+texture = SubResource("GradientTexture2D_cu8m6")
+
+[node name="skills_labels" type="VBoxContainer" parent="GameManager/Inventory"]
+offset_left = 190.0
+offset_top = 124.0
+offset_right = 350.0
+offset_bottom = 364.0
+
+[node name="level" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
+layout_mode = 2
+text = "Level:
+"
+fit_content = true
+
+[node name="health" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
+layout_mode = 2
+text = "Health:"
+fit_content = true
+
+[node name="damage" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
+layout_mode = 2
+text = "Damage:"
+fit_content = true
+
+[node name="armor" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
+layout_mode = 2
+text = "Armor:"
+fit_content = true
+
+[node name="dexterity" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
+layout_mode = 2
+text = "Dexterity:"
+fit_content = true
+
+[node name="magic" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
+layout_mode = 2
+text = "Magic:"
+fit_content = true
+
+[node name="magic_resist" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
+layout_mode = 2
+text = "Magic Resist:"
+fit_content = true
+
+[node name="attack_speed" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
+layout_mode = 2
+text = "Attack Speed:"
+fit_content = true
+
+[node name="move_speed" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
+layout_mode = 2
+text = "Move Speed:"
+fit_content = true
+
+[node name="exit_inventory" type="Button" parent="GameManager/Inventory"]
+offset_left = 763.0
+offset_top = 86.0
+offset_right = 795.0
+offset_bottom = 117.0
+text = "X"
+
+[node name="skill_points_label" type="RichTextLabel" parent="GameManager/Inventory"]
+visible = false
+offset_left = 190.0
+offset_top = 103.0
+offset_right = 320.0
+offset_bottom = 127.0
+text = "Skill points:"
+
+[node name="skill_points_buttons" type="VBoxContainer" parent="GameManager/Inventory"]
+visible = false
+offset_left = 339.0
+offset_top = 151.0
+offset_right = 370.0
+offset_bottom = 427.0
+scale = Vector2(0.77, 0.77)
+
+[node name="health" type="Button" parent="GameManager/Inventory/skill_points_buttons"]
+layout_mode = 2
+text = "+"
+
+[node name="damage" type="Button" parent="GameManager/Inventory/skill_points_buttons"]
+layout_mode = 2
+text = "+"
+
+[node name="armor" type="Button" parent="GameManager/Inventory/skill_points_buttons"]
+layout_mode = 2
+text = "+"
+
+[node name="dexterity" type="Button" parent="GameManager/Inventory/skill_points_buttons"]
+layout_mode = 2
+text = "+"
+
+[node name="magic" type="Button" parent="GameManager/Inventory/skill_points_buttons"]
+layout_mode = 2
+text = "+"
+
+[node name="magic_resist" type="Button" parent="GameManager/Inventory/skill_points_buttons"]
+layout_mode = 2
+text = "+"
+
+[node name="attack_speed" type="Button" parent="GameManager/Inventory/skill_points_buttons"]
+layout_mode = 2
+text = "+"
+
+[node name="move_speed" type="Button" parent="GameManager/Inventory/skill_points_buttons"]
+layout_mode = 2
+text = "+"
+
+[node name="Pause" type="CanvasLayer" parent="GameManager"]
+visible = false
+script = ExtResource("7_x32b5")
+
+[node name="PauseMenu" type="ColorRect" parent="GameManager/Pause"]
+process_mode = 3
+offset_right = 960.0
+offset_bottom = 540.0
+color = Color(1, 1, 1, 0.407843)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameManager/Pause/PauseMenu"]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 235.0
+offset_right = 540.0
+offset_bottom = 305.0
+
+[node name="Continue" type="Button" parent="GameManager/Pause/PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Exit" type="Button" parent="GameManager/Pause/PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[node name="dead_screen" type="CanvasLayer" parent="GameManager"]
+visible = false
+script = ExtResource("8_pl5uw")
+
+[node name="dead_screen_sprite" type="Sprite2D" parent="GameManager/dead_screen"]
+position = Vector2(594, 353)
+scale = Vector2(3.53125, 2.40625)
+texture = SubResource("GradientTexture2D_tqv3f")
+
+[node name="main_menu_button" type="Button" parent="GameManager/dead_screen"]
+offset_left = 546.0
+offset_top = 374.0
+offset_right = 642.0
+offset_bottom = 405.0
+text = "Main Menu"
+
+[node name="play_again_button" type="Button" parent="GameManager/dead_screen"]
+offset_left = 550.0
+offset_top = 334.0
+offset_right = 638.0
+offset_bottom = 365.0
+text = "Play Again"
+
+[node name="youdied_label" type="RichTextLabel" parent="GameManager/dead_screen"]
+offset_left = 559.0
+offset_top = 282.0
+offset_right = 631.0
+offset_bottom = 306.0
+text = "You Died"
+scroll_active = false
+autowrap_mode = 2
+
+[connection signal="pressed" from="GameManager/Inventory/exit_inventory" to="GameManager/Inventory" method="_on_exit_inventory_pressed"]
+[connection signal="pressed" from="GameManager/Inventory/skill_points_buttons/health" to="Player" method="_level_up_skill" binds= ["health"]]
+[connection signal="pressed" from="GameManager/Inventory/skill_points_buttons/damage" to="Player" method="_level_up_skill" binds= ["damage"]]
+[connection signal="pressed" from="GameManager/Inventory/skill_points_buttons/armor" to="Player" method="_level_up_skill" binds= ["armor"]]
+[connection signal="pressed" from="GameManager/Inventory/skill_points_buttons/dexterity" to="Player" method="_level_up_skill" binds= ["dexterity"]]
+[connection signal="pressed" from="GameManager/Inventory/skill_points_buttons/magic" to="Player" method="_level_up_skill" binds= ["magic"]]
+[connection signal="pressed" from="GameManager/Inventory/skill_points_buttons/magic_resist" to="Player" method="_level_up_skill" binds= ["magic_resist"]]
+[connection signal="pressed" from="GameManager/Inventory/skill_points_buttons/attack_speed" to="Player" method="_level_up_skill" binds= ["attack_speed"]]
+[connection signal="pressed" from="GameManager/Inventory/skill_points_buttons/move_speed" to="Player" method="_level_up_skill" binds= ["move_speed"]]
+[connection signal="pressed" from="GameManager/Pause/PauseMenu/VBoxContainer/Continue" to="GameManager/Pause" method="_on_continue_pressed"]
+[connection signal="pressed" from="GameManager/Pause/PauseMenu/VBoxContainer/Exit" to="GameManager/Pause" method="_on_exit_pressed"]
+[connection signal="pressed" from="GameManager/dead_screen/main_menu_button" to="GameManager/dead_screen" method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="GameManager/dead_screen/play_again_button" to="GameManager/dead_screen" method="_on_play_again_button_pressed"]

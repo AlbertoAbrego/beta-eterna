@@ -9,21 +9,22 @@ extends CanvasLayer
 @onready var magic_resist = $skills_labels/magic_resist
 @onready var attack_speed = $skills_labels/attack_speed
 @onready var move_speed = $skills_labels/move_speed
-@onready var player
+@onready var inventory_sprite = $inventory_sprite
+var player
 
 func _update_stats():
 	level.text = "Level: " + str(player.level)
-	health.text = "Health: " + str(player.health)
+	health.text = "Health: " + str(player.health) + "/" + str(player.max_health)
 	damage.text = "Damage: " + str(player.damage)
 	armor.text = "Armor: " + str(player.armor)
 	dexterity.text = "Dexterity: " + str(player.dexterity)
 	magic.text = "Magic: " + str(player.magic)
 	magic_resist.text = "Magic Resist: " + str(player.magic_resist)
 	attack_speed.text = "Attack Speed: " + str(player.attack_speed)
-	move_speed.text = "Move Speed: " + str(player.speed)
+	move_speed.text = "Move Speed: " + str(player.move_speed)
 
 func _ready():
-	player = get_parent()
+	player = get_node("../../Player")
 	hide()
 
 func _toggle_show_inventory():
@@ -37,3 +38,4 @@ func _toggle_show_inventory():
 
 func _on_exit_inventory_pressed():
 	_toggle_show_inventory()
+	get_parent().onInventory = false

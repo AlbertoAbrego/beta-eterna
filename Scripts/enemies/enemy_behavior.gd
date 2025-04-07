@@ -3,24 +3,29 @@ extends CharacterBody2D
 @export var damage = 2
 @onready var damage_timer = $DamageTimer
 @onready var xp_ball = preload("res://Scenes/xp.tscn")
+@onready var nav_agent = $NavigationAgent2D
+
 var xp_ammount = 100
-var speed = 100
+var speed = 80
 var health = 10
 var player: CharacterBody2D
-var stop_distance = 1
 var player_in_contact: CharacterBody2D = null
+
+func _ready():
+	nav_agent.radius = 11.0  # Ajusta según el tamaño del enemigo
 
 func _physics_process(delta):
 	if player:
-		var distance_to_player = position.distance_to(player.position)
-		if distance_to_player > stop_distance:
-			var direction = (player.position - position).normalized()
-			var motion = direction * speed * delta
-			move_and_collide(motion)
+		nav_agent.target_position = player.global_position  # Asegura que siempre siga al jugador
+		if nav_agent.is_navigation_finished():
+			return  # Evita hacer cálculos innecesarios
+		var next_position = nav_agent.get_next_path_position()
+		if next_position != global_position:
+			var direction = (next_position - global_position).normalized()
 			velocity = direction * speed
 		else:
 			velocity = Vector2.ZERO
-		#move_and_slide()
+		move_and_slide()
 
 func _on_player_sensor_body_entered(body):
 	if body.is_in_group("player"):
@@ -33,8 +38,6 @@ func _on_player_sensor_body_exited(body):
 		player_in_contact = null
 		damage_timer.stop()
 		
-func damage_player(player):
-	player.receive_damage(damage)
 
 func _apply_damage():
 	if player_in_contact:
