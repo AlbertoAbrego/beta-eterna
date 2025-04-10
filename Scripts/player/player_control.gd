@@ -146,7 +146,7 @@ func _level_up_skill(skill_name):
 		_hide_skill_points()
 
 func _hide_skill_points():
-	skill_points_label.visible = false
+	skill_points_label.text = ""
 	skill_points_buttons.visible = false
 
 func _on_skill_point_added(button_name):
