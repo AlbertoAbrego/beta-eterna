@@ -33,7 +33,7 @@ cell_size = 32.0
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0.700331, 0.6935, 0.650164, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tqv3f"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1l3ys"]
 gradient = SubResource("Gradient_xjbby")
 
 [node name="Main" type="Node2D"]
@@ -66,6 +66,7 @@ process_mode = 3
 script = ExtResource("1_q8t8p")
 
 [node name="Inventory" type="CanvasLayer" parent="GameManager"]
+visible = false
 script = ExtResource("6_68vtk")
 
 [node name="inventory_sprite" type="Sprite2D" parent="GameManager/Inventory"]
@@ -91,6 +92,7 @@ offset_bottom = 527.0
 
 [node name="level" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0.190762, 0.190762, 0.190762, 1)
 theme_override_font_sizes/normal_font_size = 20
 text = "Level:"
 fit_content = true
@@ -98,48 +100,56 @@ scroll_active = false
 
 [node name="health" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0.190762, 0.190762, 0.190762, 1)
 theme_override_font_sizes/normal_font_size = 20
 text = "Health:"
 fit_content = true
 
 [node name="damage" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0.190762, 0.190762, 0.190762, 1)
 theme_override_font_sizes/normal_font_size = 20
 text = "Damage:"
 fit_content = true
 
 [node name="armor" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0.190762, 0.190762, 0.190762, 1)
 theme_override_font_sizes/normal_font_size = 20
 text = "Armor:"
 fit_content = true
 
 [node name="dexterity" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0.190762, 0.190762, 0.190762, 1)
 theme_override_font_sizes/normal_font_size = 20
 text = "Dexterity:"
 fit_content = true
 
 [node name="magic" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0.190762, 0.190762, 0.190762, 1)
 theme_override_font_sizes/normal_font_size = 20
 text = "Magic:"
 fit_content = true
 
 [node name="magic_resist" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0.190762, 0.190762, 0.190762, 1)
 theme_override_font_sizes/normal_font_size = 20
 text = "Magic Resist:"
 fit_content = true
 
 [node name="attack_speed" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0.190762, 0.190762, 0.190762, 1)
 theme_override_font_sizes/normal_font_size = 20
 text = "Attack Speed:"
 fit_content = true
 
 [node name="move_speed" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
 layout_mode = 2
+theme_override_colors/default_color = Color(0.190762, 0.190762, 0.190762, 1)
 theme_override_font_sizes/normal_font_size = 20
 text = "Move Speed:"
 fit_content = true
@@ -156,7 +166,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_t5k25")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_k4hkq")
 flat = true
 
-[node name="Sprite2D" type="Sprite2D" parent="GameManager/Inventory/exit_inventory"]
+[node name="exit_sprite" type="Sprite2D" parent="GameManager/Inventory/exit_inventory"]
 position = Vector2(16, 16)
 texture = ExtResource("7_rofav")
 
@@ -269,13 +279,12 @@ layout_mode = 2
 text = "Exit"
 
 [node name="dead_screen" type="CanvasLayer" parent="GameManager"]
-visible = false
 script = ExtResource("8_pl5uw")
 
 [node name="dead_screen_sprite" type="Sprite2D" parent="GameManager/dead_screen"]
 position = Vector2(594, 353)
 scale = Vector2(3.53125, 2.40625)
-texture = SubResource("GradientTexture2D_tqv3f")
+texture = SubResource("GradientTexture2D_1l3ys")
 
 [node name="main_menu_button" type="Button" parent="GameManager/dead_screen"]
 offset_left = 546.0

@@ -35,6 +35,7 @@ func _spawn_wave():
 			spawn_enemy()
 		wave += 1
 		timer.start()
+		print("wave: ",wave)
 		await timer.timeout
 		_spawn_wave()
 	else:

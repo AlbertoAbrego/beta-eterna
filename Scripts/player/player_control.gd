@@ -78,13 +78,10 @@ func _check_level_up():
 		skill_points_label.text = "Skill points: " + str(skill_points)
 		skill_points_buttons.visible = true
 		skill_points_label.visible = true
-		print("level up", level)
 		next_level = _get_xp_required_next_level()
 
 func receive_damage(amount: int):
 	health -= amount
-	print("Vida del player: ",health)
-	print("Vida max:d ",max_health)
 	healthbar.visible = true
 	update_healthbar()
 	if(health <= 0):
@@ -97,7 +94,7 @@ func die():
 	move_speed = 0
 	get_tree().paused = true
 	dead_screen.show()
-	print("Muelto")
+	get_node("../GameManager").set_player_death()
 
 func _attack():
 	$Animation.play("attack")
