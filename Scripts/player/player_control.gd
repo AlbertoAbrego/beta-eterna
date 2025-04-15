@@ -29,6 +29,7 @@ var skill_points = 0
 
 var doingAttack = false
 var xp_factor = 1.5 #1.2-easy 1.5-medium 2-hard
+var damaged_enemies = {}
 const base_xp = 100
 
 func _ready():
@@ -98,14 +99,16 @@ func die():
 
 func _attack():
 	$Animation.play("attack")
+	damaged_enemies.clear()
 	_apply_damage()
 
 func _apply_damage():
 	while doingAttack:
 		await get_tree().create_timer(0.05).timeout
 		for enemy in $AttackArea.get_overlapping_bodies():
-			if enemy.is_in_group("enemy"):
+			if enemy.is_in_group("enemy") and not damaged_enemies.has(enemy):
 				enemy.receive_damage(damage)
+				damaged_enemies[enemy] = true
 
 func _on_animation_animation_started(anim_name):
 	if anim_name == "attack":

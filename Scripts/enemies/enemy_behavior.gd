@@ -3,10 +3,11 @@ extends CharacterBody2D
 @export var damage = 2
 @onready var damage_timer = $DamageTimer
 @onready var xp_ball = preload("res://Scenes/xp.tscn")
+@onready var xp_sprite = preload("res://Sprites/xp.png")
 @onready var nav_agent = $NavigationAgent2D
 
 var xp_ammount = 100
-var speed = 80
+var speed = 60
 var health = 10
 var player: CharacterBody2D
 var player_in_contact: CharacterBody2D = null
@@ -52,6 +53,7 @@ func receive_damage(amount: int):
 func die():
 	#drop xp ball
 	var xp = xp_ball.instantiate()
+	xp.set_sprite(xp_sprite)
 	xp.position = self.position
 	xp._spawn_xp(xp_ammount)
 	get_parent().add_child.call_deferred(xp)

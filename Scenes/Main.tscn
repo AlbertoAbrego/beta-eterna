@@ -254,7 +254,6 @@ position = Vector2(16, 16)
 texture = ExtResource("8_06uyx")
 
 [node name="Pause" type="CanvasLayer" parent="GameManager"]
-visible = false
 script = ExtResource("7_x32b5")
 
 [node name="PauseMenu" type="ColorRect" parent="GameManager/Pause"]
@@ -274,11 +273,16 @@ offset_bottom = 305.0
 layout_mode = 2
 text = "Continue"
 
+[node name="Main Menu" type="Button" parent="GameManager/Pause/PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
 [node name="Exit" type="Button" parent="GameManager/Pause/PauseMenu/VBoxContainer"]
 layout_mode = 2
 text = "Exit"
 
 [node name="dead_screen" type="CanvasLayer" parent="GameManager"]
+visible = false
 script = ExtResource("8_pl5uw")
 
 [node name="dead_screen_sprite" type="Sprite2D" parent="GameManager/dead_screen"]
@@ -319,6 +323,7 @@ autowrap_mode = 2
 [connection signal="pressed" from="GameManager/Inventory/skill_points_buttons/attack_speed" to="Player" method="_level_up_skill" binds= ["attack_speed"]]
 [connection signal="pressed" from="GameManager/Inventory/skill_points_buttons/move_speed" to="Player" method="_level_up_skill" binds= ["move_speed"]]
 [connection signal="pressed" from="GameManager/Pause/PauseMenu/VBoxContainer/Continue" to="GameManager/Pause" method="_on_continue_pressed"]
+[connection signal="pressed" from="GameManager/Pause/PauseMenu/VBoxContainer/Main Menu" to="GameManager/Pause" method="_on_main_menu_pressed"]
 [connection signal="pressed" from="GameManager/Pause/PauseMenu/VBoxContainer/Exit" to="GameManager/Pause" method="_on_exit_pressed"]
 [connection signal="pressed" from="GameManager/dead_screen/main_menu_button" to="GameManager/dead_screen" method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="GameManager/dead_screen/play_again_button" to="GameManager/dead_screen" method="_on_play_again_button_pressed"]

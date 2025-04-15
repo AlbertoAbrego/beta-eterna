@@ -2,12 +2,14 @@ extends CharacterBody2D
 
 @onready var damage_timer = $DamageTimer
 @onready var nav_agent = $NavigationAgent2D
+@onready var xp_sprite = preload("res://Sprites/xp_blue.png")
+@onready var xp_ball = preload("res://Scenes/xp.tscn")
 @onready var target_sprite_scene = preload("res://Scenes/target_sprite.tscn")
 
 var slime_ball = preload("res://Scenes/slime_ball.tscn")
 var damage = 15
 var speed = 80
-var health = 200
+var health = 50
 var onFollowPlayer = true
 var onAttack = false
 var time_spent = 0.0
@@ -15,6 +17,7 @@ var time_following = 8
 var time_attacking = 3
 var player
 var target_sprite
+var xp_ammount = 500
 var player_in_contact: CharacterBody2D = null
 
 func _ready():
@@ -67,6 +70,11 @@ func receive_damage(amount: int):
 		die()
 
 func die():
+	var xp = xp_ball.instantiate()
+	xp.position = self.position
+	xp._spawn_xp(xp_ammount)
+	xp.set_sprite(xp_sprite)
+	get_parent().add_child.call_deferred(xp)
 	queue_free()
 
 func _on_player_sensor_body_entered(body):

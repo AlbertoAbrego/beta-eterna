@@ -3,7 +3,7 @@ extends Node
 @onready var timer = $Timer
 var enemy_scene = preload("res://scenes/Enemy.tscn")
 var boss_scene = preload("res://Scenes/Boss_Slime.tscn")
-var max_waves = 10
+var max_waves = 1
 var elapsedTime = 0.0
 var enemyCount = 1
 var enemy_position = Vector2.ZERO
