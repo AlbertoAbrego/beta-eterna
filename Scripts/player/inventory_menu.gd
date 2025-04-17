@@ -10,6 +10,9 @@ extends CanvasLayer
 @onready var attack_speed = $skills_labels/attack_speed
 @onready var move_speed = $skills_labels/move_speed
 @onready var inventory_sprite = $inventory_sprite
+@onready var sword = preload("res://Scripts/items/sword.tres")
+@onready var slot = preload("res://Scenes/player/slot.tscn")
+var inventory_slots
 var player
 
 func _update_stats():
@@ -25,6 +28,10 @@ func _update_stats():
 
 func _ready():
 	player = get_node("../../Player")
+	inventory_slots = slot.instantiate()
+	inventory_slots.position = Vector2(670,380)
+	add_child(inventory_slots)
+	inventory_slots.add_item(sword)
 	hide()
 
 func _toggle_show_inventory():

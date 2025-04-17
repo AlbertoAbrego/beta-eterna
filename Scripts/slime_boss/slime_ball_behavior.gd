@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var enemy_scene = preload("res://Scenes/Enemy.tscn")
+var enemy_scene = preload("res://Scenes/Enemies/Enemy.tscn")
 var target: Vector2
 var fire = false
 var damage = 20

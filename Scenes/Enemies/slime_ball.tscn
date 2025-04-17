@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dw1cq5p6y3rms"]
 
-[ext_resource type="Script" path="res://Scripts/slime_boss/slime_ball_behavior.gd" id="1_4y3od"]
-[ext_resource type="Texture2D" uid="uid://c8qjtnt7lswow" path="res://Sprites/slime_ball.png" id="1_x87u4"]
+[ext_resource type="Script" path="res://Scripts/slime_boss/slime_ball_behavior.gd" id="1_ve2qm"]
+[ext_resource type="Texture2D" uid="uid://c8qjtnt7lswow" path="res://Sprites/slime_ball.png" id="2_iv8i4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l56ek"]
 radius = 15.0
@@ -9,14 +9,14 @@ radius = 15.0
 [node name="slime_ball" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 4
-script = ExtResource("1_4y3od")
+script = ExtResource("1_ve2qm")
 
 [node name="slime_ball_collision" type="CollisionShape2D" parent="."]
 light_mask = 0
 shape = SubResource("CircleShape2D_l56ek")
 
 [node name="slime_ball_sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_x87u4")
+texture = ExtResource("2_iv8i4")
 
 [node name="slime_ball_sensor" type="Area2D" parent="."]
 collision_layer = 0

@@ -3,10 +3,10 @@ extends CharacterBody2D
 @onready var damage_timer = $DamageTimer
 @onready var nav_agent = $NavigationAgent2D
 @onready var xp_sprite = preload("res://Sprites/xp_blue.png")
-@onready var xp_ball = preload("res://Scenes/xp.tscn")
-@onready var target_sprite_scene = preload("res://Scenes/target_sprite.tscn")
+@onready var xp_ball = preload("res://Scenes/Enemies/xp.tscn")
+@onready var target_sprite_scene = preload("res://Scenes/Enemies/target_sprite.tscn")
 
-var slime_ball = preload("res://Scenes/slime_ball.tscn")
+var slime_ball = preload("res://Scenes/Enemies/slime_ball.tscn")
 var damage = 15
 var speed = 80
 var health = 50

@@ -1,8 +1,8 @@
 extends Node
 
 @onready var timer = $Timer
-var enemy_scene = preload("res://scenes/Enemy.tscn")
-var boss_scene = preload("res://Scenes/Boss_Slime.tscn")
+var enemy_scene = preload("res://scenes/Enemies/Enemy.tscn")
+var boss_scene = preload("res://Scenes/Enemies/Boss_Slime.tscn")
 var max_waves = 1
 var elapsedTime = 0.0
 var enemyCount = 1

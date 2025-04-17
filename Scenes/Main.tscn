@@ -1,14 +1,14 @@
 [gd_scene load_steps=20 format=3 uid="uid://du0jleeqpdhpn"]
 
-[ext_resource type="PackedScene" uid="uid://bi7l40yio0t4g" path="res://Scenes/Player.tscn" id="1_0ffvu"]
+[ext_resource type="PackedScene" uid="uid://bi7l40yio0t4g" path="res://Scenes/player/Player.tscn" id="1_0ffvu"]
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_q8t8p"]
 [ext_resource type="Texture2D" uid="uid://dsy7co27632k2" path="res://Sprites/jake1.png" id="3_25git"]
-[ext_resource type="Texture2D" uid="uid://b8e2otwh53jib" path="res://Sprites/sword.png" id="4_a6tgv"]
 [ext_resource type="Script" path="res://Scripts/enemies/enemy_spawner.gd" id="4_lvuys"]
 [ext_resource type="Script" path="res://Scripts/player/inventory_menu.gd" id="6_68vtk"]
 [ext_resource type="Texture2D" uid="uid://krk8daqptp60" path="res://Sprites/inventory.png" id="7_a4mv8"]
 [ext_resource type="Texture2D" uid="uid://brl2vxpmt07kn" path="res://Sprites/close_button.png" id="7_rofav"]
 [ext_resource type="Script" path="res://Scripts/player/pause_menu.gd" id="7_x32b5"]
+[ext_resource type="Texture2D" uid="uid://b6rxmtplljhgw" path="res://Sprites/sword_inventory.png" id="8_2utad"]
 [ext_resource type="Texture2D" uid="uid://yqs7jeo4145t" path="res://Sprites/plus_button.png" id="8_06uyx"]
 [ext_resource type="Script" path="res://Scripts/player/dead_screen.gd" id="8_pl5uw"]
 
@@ -57,16 +57,11 @@ script = ExtResource("4_lvuys")
 [node name="Timer" type="Timer" parent="EnemySpawner"]
 wait_time = 10.0
 
-[node name="Sword" type="Sprite2D" parent="."]
-position = Vector2(1179, 477)
-texture = ExtResource("4_a6tgv")
-
 [node name="GameManager" type="Node2D" parent="."]
 process_mode = 3
 script = ExtResource("1_q8t8p")
 
 [node name="Inventory" type="CanvasLayer" parent="GameManager"]
-visible = false
 script = ExtResource("6_68vtk")
 
 [node name="inventory_sprite" type="Sprite2D" parent="GameManager/Inventory"]
@@ -75,9 +70,9 @@ texture = ExtResource("7_a4mv8")
 
 [node name="skill_points_label" type="RichTextLabel" parent="GameManager/Inventory"]
 visible = false
-offset_left = 382.0
+offset_left = 293.0
 offset_top = 211.0
-offset_right = 605.0
+offset_right = 516.0
 offset_bottom = 240.0
 theme_override_font_sizes/normal_font_size = 20
 text = "Skill points:"
@@ -85,9 +80,9 @@ fit_content = true
 scroll_active = false
 
 [node name="skills_labels" type="VBoxContainer" parent="GameManager/Inventory"]
-offset_left = 382.0
+offset_left = 293.0
 offset_top = 242.0
-offset_right = 605.0
+offset_right = 516.0
 offset_bottom = 527.0
 
 [node name="level" type="RichTextLabel" parent="GameManager/Inventory/skills_labels"]
@@ -155,9 +150,9 @@ text = "Move Speed:"
 fit_content = true
 
 [node name="exit_inventory" type="Button" parent="GameManager/Inventory"]
-offset_left = 707.0
+offset_left = 797.0
 offset_top = 177.0
-offset_right = 739.0
+offset_right = 829.0
 offset_bottom = 209.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_t3wbo")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vs2xn")
@@ -170,11 +165,15 @@ flat = true
 position = Vector2(16, 16)
 texture = ExtResource("7_rofav")
 
+[node name="Sword" type="Sprite2D" parent="GameManager/Inventory"]
+position = Vector2(692, 510)
+texture = ExtResource("8_2utad")
+
 [node name="skill_points_buttons" type="VBoxContainer" parent="GameManager/Inventory"]
 visible = false
-offset_left = 635.0
+offset_left = 577.0
 offset_top = 273.0
-offset_right = 667.0
+offset_right = 609.0
 offset_bottom = 529.0
 theme_override_constants/separation = 0
 
@@ -254,6 +253,7 @@ position = Vector2(16, 16)
 texture = ExtResource("8_06uyx")
 
 [node name="Pause" type="CanvasLayer" parent="GameManager"]
+visible = false
 script = ExtResource("7_x32b5")
 
 [node name="PauseMenu" type="ColorRect" parent="GameManager/Pause"]

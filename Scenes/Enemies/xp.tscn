@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddp1684t6bqfa"]
 
-[ext_resource type="Script" path="res://Scripts/enemies/xp.gd" id="1_cf281"]
-[ext_resource type="Texture2D" uid="uid://bdxo7a4h4b5cj" path="res://Sprites/xp.png" id="2_t6d6q"]
+[ext_resource type="Script" path="res://Scripts/enemies/xp.gd" id="1_8hq2c"]
+[ext_resource type="Texture2D" uid="uid://bdxo7a4h4b5cj" path="res://Sprites/xp.png" id="2_m0dp5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lutwb"]
 radius = 4.12311
 
 [node name="Xp" type="Area2D" groups=["xp"]]
-script = ExtResource("1_cf281")
+script = ExtResource("1_8hq2c")
 
 [node name="xp_sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_t6d6q")
+texture = ExtResource("2_m0dp5")
 
 [node name="xp_collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_lutwb")

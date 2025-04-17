@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1pltx8l2kdme"]
 
-[ext_resource type="Texture2D" uid="uid://nqf24xlgkami" path="res://Sprites/target.png" id="1_0wsvb"]
+[ext_resource type="Texture2D" uid="uid://nqf24xlgkami" path="res://Sprites/target.png" id="1_gtyfu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jhh83"]
 radius = 3.0
@@ -15,4 +15,4 @@ visibility_layer = 2
 shape = SubResource("CircleShape2D_jhh83")
 
 [node name="target_sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_0wsvb")
+texture = ExtResource("1_gtyfu")
